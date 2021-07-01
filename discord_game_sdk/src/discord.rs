@@ -58,6 +58,8 @@ use std::{cell::UnsafeCell, marker::PhantomData, mem::ManuallyDrop};
 /// - [Voice](#voice)
 pub struct Discord<'d, E>(pub(crate) *mut DiscordInner<'d, E>);
 
+unsafe impl<'d, E> Send for Discord<'d, E> where E: Send {}
+
 impl<E> Drop for Discord<'_, E> {
     fn drop(&mut self) {
         unsafe {
